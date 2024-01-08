@@ -1,14 +1,14 @@
-package org.example.Modele;
+package org.example.Model;
 
 import java.time.LocalDate;
 
-public class DevDetails {
+public class DevDetail {
     private String devName;
     private String devEmail;
     private String level;
     private LocalDate lastTeamChangeDate;
 
-    public DevDetails(String devName, String devEmail, String level, LocalDate lastTeamChangeDate) {
+    public DevDetail(String devName, String devEmail, String level, LocalDate lastTeamChangeDate) {
         this.devName = devName;
         this.devEmail = devEmail;
         this.level = level;

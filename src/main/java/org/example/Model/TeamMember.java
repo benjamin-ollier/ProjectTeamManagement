@@ -1,12 +1,12 @@
-package org.example.Modele;
+package org.example.Model;
 
-public class TeamMembers {
+public class TeamMember {
     private int teamId;
     private String userName;
     private String userEmail;
     private String roleInTeam;
 
-    public TeamMembers(int teamId, String userEmail, String roleInTeam) {
+    public TeamMember(int teamId, String userEmail, String roleInTeam) {
         this.teamId = teamId;
         this.userEmail = userEmail;
         this.roleInTeam = roleInTeam;

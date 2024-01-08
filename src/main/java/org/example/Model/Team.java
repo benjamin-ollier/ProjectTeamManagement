@@ -1,11 +1,11 @@
-package org.example.Modele;
+package org.example.Model;
 
-public class Teams {
+public class Team {
     private int teamId;
     private int projectId;
     private String status;
 
-    public Teams(int teamId, int projectId, String status) {
+    public Team(int teamId, int projectId, String status) {
         this.teamId = teamId;
         this.projectId = projectId;
         this.status = status;

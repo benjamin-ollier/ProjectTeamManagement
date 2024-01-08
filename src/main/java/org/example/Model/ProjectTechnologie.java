@@ -1,11 +1,11 @@
-package org.example.Modele;
+package org.example.Model;
 
-public class ProjectTechnologies {
+public class ProjectTechnologie {
     private int projectId;
     private int techId;
     private int devsRequired;
 
-    public ProjectTechnologies(int projectId, int techId, int devsRequired) {
+    public ProjectTechnologie(int projectId, int techId, int devsRequired) {
         this.projectId = projectId;
         this.techId = techId;
         this.devsRequired = devsRequired;

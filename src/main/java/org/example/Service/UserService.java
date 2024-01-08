@@ -1,20 +1,36 @@
 package org.example.Service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import org.example.Repository.JsonUtil;
-import org.example.Modele.User;
+import org.example.Model.User;
+import org.example.Repository.UserRepository;
 
-import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 public class UserService {
-    public List<User> getAllUsers() {
-        try {
-            return JsonUtil.readFromJsonFile("data/User.json", new TypeReference<List<User>>() {});
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
+
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
+    }
+
+    /*
+    public User getUserById(String id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public void createUser(User user) {
+        userRepository.save(user);
+    }
+
+    public void updateUser(User user) {
+        userRepository.save(user); //'assurer qu'il existe
+    }
+
+    public void deleteUser(String id) {
+        userRepository.deleteById(id);
+    }*/
+
 }

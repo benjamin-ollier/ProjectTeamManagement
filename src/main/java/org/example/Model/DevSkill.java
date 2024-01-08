@@ -1,14 +1,12 @@
-package org.example.Modele;
+package org.example.Model;
 
-import java.util.Date;
-
-public class DevSkills {
+public class DevSkill {
     private String devName;
     private String devEmail;
     private int techId;
     private int years_of_experience;
 
-    public DevSkills(String devName, String devEmail, int techId, int years_of_experience) {
+    public DevSkill(String devName, String devEmail, int techId, int years_of_experience) {
         this.devName = devName;
         this.devEmail = devEmail;
         this.techId = techId;

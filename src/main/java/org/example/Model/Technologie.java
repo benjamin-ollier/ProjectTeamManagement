@@ -1,10 +1,10 @@
-package org.example.Modele;
+package org.example.Model;
 
-public class Technologies {
+public class Technologie {
     private int tech_id;
     private String name;
 
-    public Technologies(int tech_id, String name) {
+    public Technologie(int tech_id, String name) {
         this.tech_id = tech_id;
         this.name = name;
     }
