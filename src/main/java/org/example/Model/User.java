@@ -3,7 +3,6 @@ package org.example.Model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-
 @Entity
 @Table(name = "user")
 public class User {
@@ -22,7 +21,6 @@ public class User {
 
     @Column(name = "lastTeamChangeDate")
     private LocalDate lastTeamChangeDate;
-
 
     public User() {
     }
@@ -64,5 +62,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public LocalDate getLastTeamChangeDate() {
+        return lastTeamChangeDate;
+    }
+
+    public void setLastTeamChangeDate(LocalDate lastTeamChangeDate) {
+        this.lastTeamChangeDate = lastTeamChangeDate;
     }
 }

@@ -1,10 +1,13 @@
 package org.example.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "devSkill")
 public class DevSkill {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int devSkillId;
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User userId;
@@ -17,11 +20,20 @@ public class DevSkill {
     @Column(name = "niveau")
     private String niveau;
 
-    public DevSkill(User userId, Technologie techId, int yearsOfExperience, String niveau) {
+    public DevSkill(int devSkillId, User userId, Technologie techId, int yearsOfExperience, String niveau) {
+        this.devSkillId = devSkillId;
         this.userId = userId;
         this.techId = techId;
         this.yearsOfExperience = yearsOfExperience;
         this.niveau = niveau;
+    }
+
+    public int getDevSkillId() {
+        return devSkillId;
+    }
+
+    public void setDevSkillId(int devSkillId) {
+        this.devSkillId = devSkillId;
     }
 
     public User getUserId() {

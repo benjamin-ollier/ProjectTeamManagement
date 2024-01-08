@@ -2,6 +2,8 @@ package org.example.Model;
 
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "teamMember")
 public class TeamMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

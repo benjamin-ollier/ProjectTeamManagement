@@ -17,6 +17,14 @@
     <property name="hbm2ddl.auto">create</property>
 
     <mapping class="org.example.Model.User"/>
+    <mapping class="org.example.Model.Technologie"/>
+    <mapping class="org.example.Model.TeamMember"/>
+    <mapping class="org.example.Model.Team"/>
+    <mapping class="org.example.Model.ProjectTechnologie"/>
+    <mapping class="org.example.Model.Project"/>
+    <mapping class="org.example.Model.DevSkill"/>
+
+
 
 </session-factory>
 </hibernate-configuration>

@@ -11,4 +11,24 @@ public class Technologie {
     @Column(name = "name")
     private String name;
 
+    public Technologie(int techId, String name) {
+        this.techId = techId;
+        this.name = name;
+    }
+
+    public int getTechId() {
+        return techId;
+    }
+
+    public void setTechId(int techId) {
+        this.techId = techId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -1,6 +1,8 @@
 package org.example.Model;
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "team")
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
