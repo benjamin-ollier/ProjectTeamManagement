@@ -1,11 +1,17 @@
 package org.example.Model;
+import jakarta.persistence.*;
 
 public class Team {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int teamId;
-    private int projectId;
+    @ManyToOne
+    @JoinColumn(name = "projectId", referencedColumnName = "projectId")
+    private Project projectId;
+    @Column(name = "status")
     private String status;
 
-    public Team(int teamId, int projectId, String status) {
+    public Team(int teamId, Project projectId, String status) {
         this.teamId = teamId;
         this.projectId = projectId;
         this.status = status;
@@ -19,11 +25,11 @@ public class Team {
         this.teamId = teamId;
     }
 
-    public int getProjectId() {
+    public Project getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(int projectId) {
+    public void setProjectId(Project projectId) {
         this.projectId = projectId;
     }
 

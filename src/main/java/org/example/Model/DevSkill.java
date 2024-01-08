@@ -1,47 +1,58 @@
 package org.example.Model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 public class DevSkill {
-    private String devName;
-    private String devEmail;
-    private int techId;
-    private int years_of_experience;
+    @ManyToOne
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private User userId;
+    @ManyToOne
+    @JoinColumn(name = "techId", referencedColumnName = "techId")
+    private Technologie techId;
+    @Column(name = "yearsOfExperience")
+    private int yearsOfExperience;
 
-    public DevSkill(String devName, String devEmail, int techId, int years_of_experience) {
-        this.devName = devName;
-        this.devEmail = devEmail;
+    @Column(name = "niveau")
+    private String niveau;
+
+    public DevSkill(User userId, Technologie techId, int yearsOfExperience, String niveau) {
+        this.userId = userId;
         this.techId = techId;
-        this.years_of_experience = years_of_experience;
+        this.yearsOfExperience = yearsOfExperience;
+        this.niveau = niveau;
     }
 
-    public String getDevName() {
-        return devName;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setDevName(String devName) {
-        this.devName = devName;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
-    public String getDevEmail() {
-        return devEmail;
-    }
-
-    public void setDevEmail(String devEmail) {
-        this.devEmail = devEmail;
-    }
-
-    public int getTechId() {
+    public Technologie getTechId() {
         return techId;
     }
 
-    public void setTechId(int techId) {
+    public void setTechId(Technologie techId) {
         this.techId = techId;
     }
 
-    public int getYears_of_experience() {
-        return years_of_experience;
+    public int getYearsOfExperience() {
+        return yearsOfExperience;
     }
 
-    public void setYears_of_experience(int years_of_experience) {
-        this.years_of_experience = years_of_experience;
+    public void setYearsOfExperience(int yearsOfExperience) {
+        this.yearsOfExperience = yearsOfExperience;
+    }
+
+    public String getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(String niveau) {
+        this.niveau = niveau;
     }
 }

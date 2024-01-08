@@ -2,8 +2,10 @@ package org.example.Model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +19,10 @@ public class User {
 
     @Column(name = "role")
     private String role;
+
+    @Column(name = "lastTeamChangeDate")
+    private LocalDate lastTeamChangeDate;
+
 
     public User() {
     }

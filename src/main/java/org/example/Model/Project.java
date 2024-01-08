@@ -1,14 +1,31 @@
 package org.example.Model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 
 public class Project {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int projectId;
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "priority")
     private String priority; // Valeurs possibles : "normale", "best effort", "critique"
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "startDate")
     private LocalDate startDate;
+    @Column(name = "endDate")
     private LocalDate endDate;
+
+    @Column(name = "status")
     private String status; // Valeurs possibles : "en attente", "en cours", "terminé", "annulé"
 
     public Project() {
