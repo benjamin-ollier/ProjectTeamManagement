@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Alice Dupont",
+    "email": "alice.dupont@gmail.com",
+    "role": "developer"
+  },
+  {
+    "name": "ben",
+    "email": "ben@gmail.com",
+    "role": "team_manager"
+  },
+  {
+    "name": "Caroline Durand",
+    "email": "caroline.durand@gmail.com",
+    "role": "developer"
+  },
+  {
+    "name": "David Leroy",
+    "email": "david.leroy@gmail.com",
+    "role": "developer"
+  }
+]
