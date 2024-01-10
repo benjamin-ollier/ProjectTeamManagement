@@ -7,29 +7,37 @@ import jakarta.persistence.*;
 public class TeamMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long teamMemberId;
     @ManyToOne
     @JoinColumn(name = "teamId", referencedColumnName = "teamId")
     private Team teamId;
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    private User user;
+    @JoinColumn(name = "userEmail", referencedColumnName = "email")
+    private User userEmail;
+    @ManyToOne
+    @JoinColumn(name = "userName", referencedColumnName = "name")
+    private User userName;
     @Column(name = "roleInTeam")
     private String roleInTeam;
 
-    public TeamMember(Long id, Team teamId, User user, String roleInTeam) {
-        this.id = id;
+    public TeamMember(Long teamMemberId, Team teamId, User userEmail, User userName, String roleInTeam) {
+        this.teamMemberId = teamMemberId;
         this.teamId = teamId;
-        this.user = user;
+        this.userEmail = userEmail;
+        this.userName = userName;
         this.roleInTeam = roleInTeam;
     }
 
-    public Long getId() {
-        return id;
+    public TeamMember() {
+
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getTeamMemberId() {
+        return teamMemberId;
+    }
+
+    public void setTeamMemberId(Long teamMemberId) {
+        this.teamMemberId = teamMemberId;
     }
 
     public Team getTeamId() {
@@ -40,12 +48,20 @@ public class TeamMember {
         this.teamId = teamId;
     }
 
-    public User getUser() {
-        return user;
+    public User getUserEmail() {
+        return userEmail;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserEmail(User userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public User getUserName() {
+        return userName;
+    }
+
+    public void setUserName(User userName) {
+        this.userName = userName;
     }
 
     public String getRoleInTeam() {

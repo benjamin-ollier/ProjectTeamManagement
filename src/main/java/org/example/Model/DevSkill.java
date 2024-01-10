@@ -9,23 +9,33 @@ public class DevSkill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int devSkillId;
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    private User userId;
+    @JoinColumn(name = "teamId", referencedColumnName = "teamId")
+    private Team teamId;
+    @ManyToOne
+    @JoinColumn(name = "userEmail", referencedColumnName = "email")
+    private User userEmail;
+    @ManyToOne
+    @JoinColumn(name = "userName", referencedColumnName = "name")
+    private User userName;
     @ManyToOne
     @JoinColumn(name = "techId", referencedColumnName = "techId")
-    private Technologie techId;
+    private Technology techId;
     @Column(name = "yearsOfExperience")
     private int yearsOfExperience;
-
     @Column(name = "niveau")
     private String niveau;
 
-    public DevSkill(int devSkillId, User userId, Technologie techId, int yearsOfExperience, String niveau) {
+    public DevSkill(int devSkillId, Team teamId, User userEmail, User userName, Technology techId, int yearsOfExperience) {
         this.devSkillId = devSkillId;
-        this.userId = userId;
+        this.teamId = teamId;
+        this.userEmail = userEmail;
+        this.userName = userName;
         this.techId = techId;
         this.yearsOfExperience = yearsOfExperience;
-        this.niveau = niveau;
+    }
+
+    public DevSkill() {
+
     }
 
     public int getDevSkillId() {
@@ -36,19 +46,35 @@ public class DevSkill {
         this.devSkillId = devSkillId;
     }
 
-    public User getUserId() {
-        return userId;
+    public Team getTeamId() {
+        return teamId;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setTeamId(Team teamId) {
+        this.teamId = teamId;
     }
 
-    public Technologie getTechId() {
+    public User getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(User userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public User getUserName() {
+        return userName;
+    }
+
+    public void setUserName(User userName) {
+        this.userName = userName;
+    }
+
+    public Technology getTechId() {
         return techId;
     }
 
-    public void setTechId(Technologie techId) {
+    public void setTechId(Technology techId) {
         this.techId = techId;
     }
 

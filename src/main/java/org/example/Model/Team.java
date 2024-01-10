@@ -19,6 +19,10 @@ public class Team {
         this.status = status;
     }
 
+    public Team() {
+
+    }
+
     public int getTeamId() {
         return teamId;
     }

@@ -13,12 +13,16 @@ public class ProjectTechnologie {
     private Project projectId;
     @ManyToOne
     @JoinColumn(name = "techId", referencedColumnName = "techId")
-    private Technologie techId;
+    private Technology techId;
 
-    public ProjectTechnologie(int id, Project projectId, Technologie techId) {
+    public ProjectTechnologie(int id, Project projectId, Technology techId) {
         this.id = id;
         this.projectId = projectId;
         this.techId = techId;
+    }
+
+    public ProjectTechnologie() {
+
     }
 
     public int getId() {
@@ -37,11 +41,11 @@ public class ProjectTechnologie {
         this.projectId = projectId;
     }
 
-    public Technologie getTechId() {
+    public Technology getTechId() {
         return techId;
     }
 
-    public void setTechId(Technologie techId) {
+    public void setTechId(Technology techId) {
         this.techId = techId;
     }
 }

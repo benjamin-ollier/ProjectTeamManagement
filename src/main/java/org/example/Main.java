@@ -17,9 +17,11 @@ public class Main {
 
         Javalin app = Javalin.create().start(7070);
 
+        userController.registerRoutes(app);
+        //projectController.registerRoutes(app);
 
-        app.get("/users", userController.getAllUsers);
-        //app.get("/users/:id", userController.getUserById);
-        //app.post("/users", userController.createUser);
+        app.error(404, ctx -> ctx.result("Resource not found"));
+        app.error(500, ctx -> ctx.result("Internal server error"));
+
     }
 }

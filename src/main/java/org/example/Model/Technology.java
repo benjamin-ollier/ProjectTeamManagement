@@ -4,16 +4,20 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "technologie")
-public class Technologie {
+public class Technology {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int techId;
     @Column(name = "name")
     private String name;
 
-    public Technologie(int techId, String name) {
+    public Technology(int techId, String name) {
         this.techId = techId;
         this.name = name;
+    }
+
+    public Technology() {
+
     }
 
     public int getTechId() {
