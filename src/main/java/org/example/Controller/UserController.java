@@ -18,14 +18,13 @@ public class UserController {
     }
 
     public void registerRoutes(Javalin app) {
-        app.post("/users", createUser);
+        app.post("/user/create", createUser);
         app.get("/user/name/{name}", getUserByName);
         app.get("/user/email/{email}", getUserByEmail);
         app.get("/users", getAllUsers);
         app.put("/user/update/{identity}", updateUser);
         app.delete("/user/delete/{name}/{email}", deleteUser);
-        app.get("/user/skills/{identity}", getUserSkills);
-        app.post("/user/addSkill/{identity}", addSkill);
+
     }
 
     public Handler getAllUsers = ctx -> {
@@ -84,17 +83,4 @@ public class UserController {
         }
     };
 
-    public Handler getUserSkills = ctx -> {
-        String identity = ctx.pathParam("identity");
-        List<DevSkill> usersWithSkill = userService.getUserSkills(identity);
-        ctx.json(usersWithSkill);
-    };
-
-    public Handler addSkill = ctx -> {
-        String identity = ctx.pathParam("identity");
-        String technoName = ctx.pathParam("technology");
-
-        DevSkill skill = userService.addSkill(identity, technoName);
-        ctx.status(201).json(skill);
-    };
 }

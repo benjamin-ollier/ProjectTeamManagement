@@ -9,27 +9,28 @@ public class DevSkill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int devSkillId;
     @ManyToOne
-    @JoinColumn(name = "teamId", referencedColumnName = "teamId")
+    @JoinColumn(name = "teamId", referencedColumnName = "teamId",  nullable = true)
     private Team teamId;
-    @ManyToOne
-    @JoinColumn(name = "userEmail", referencedColumnName = "email")
-    private User userEmail;
-    @ManyToOne
-    @JoinColumn(name = "userName", referencedColumnName = "name")
-    private User userName;
-    @ManyToOne
-    @JoinColumn(name = "techId", referencedColumnName = "techId")
-    private Technology techId;
-    @Column(name = "yearsOfExperience")
-    private int yearsOfExperience;
-    @Column(name = "niveau")
-    private String niveau;
 
-    public DevSkill(int devSkillId, Team teamId, User userEmail, User userName, Technology techId, int yearsOfExperience) {
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "userIdentityEmail", referencedColumnName = "email"),
+            @JoinColumn(name = "userIdentityName", referencedColumnName = "name")
+    })
+    private User userIdentity;
+
+    @ManyToOne
+    @JoinColumn(name = "techId", referencedColumnName = "techId", nullable = false)
+    private Technology techId;
+    @Column(name = "yearsOfExperience",  nullable = true)
+    private int yearsOfExperience;
+    @Column(name = "level",  nullable = true)
+    private String level;
+
+    public DevSkill(int devSkillId, Team teamId, User userIdentity, Technology techId, int yearsOfExperience) {
         this.devSkillId = devSkillId;
         this.teamId = teamId;
-        this.userEmail = userEmail;
-        this.userName = userName;
+        this.userIdentity = userIdentity;
         this.techId = techId;
         this.yearsOfExperience = yearsOfExperience;
     }
@@ -54,20 +55,12 @@ public class DevSkill {
         this.teamId = teamId;
     }
 
-    public User getUserEmail() {
-        return userEmail;
+    public User getUserIdentity() {
+        return userIdentity;
     }
 
-    public void setUserEmail(User userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public User getUserName() {
-        return userName;
-    }
-
-    public void setUserName(User userName) {
-        this.userName = userName;
+    public void setUserIdentity(User identity) {
+        this.userIdentity = identity;
     }
 
     public Technology getTechId() {
@@ -86,11 +79,11 @@ public class DevSkill {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    public String getNiveau() {
-        return niveau;
+    public String getLevel() {
+        return level;
     }
 
-    public void setNiveau(String niveau) {
-        this.niveau = niveau;
+    public void setLevel(String level) {
+        this.level = level;
     }
 }

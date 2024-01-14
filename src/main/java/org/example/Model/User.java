@@ -2,19 +2,21 @@ package org.example.Model;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 @Entity
 @Table(name = "user")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-
-    @Column(name = "name", nullable = false, unique=true)
-    private String name;
-
+    /*
+    @EmbeddedId
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+    @EmbeddedId
+    @Column(name = "name", nullable = false, unique=true)
+    private String name;*/
+
+    @EmbeddedId
+    private UserId userId;
 
     @Column(name = "role")
     private String role;
@@ -25,35 +27,19 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email, String role) {
-        this.name = name;
-        this.email = email;
+
+    public User(UserId userId, String role, LocalDate lastTeamChangeDate) {
+        this.userId = userId;
         this.role = role;
+        this.lastTeamChangeDate = lastTeamChangeDate;
     }
 
-    // Getters and setters
-    public Long getUserId() {
+    public UserId getUserId() {
         return userId;
     }
 
-    public void setUserId(Long id) {
+    public void setUserId(UserId userId) {
         this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getRole() {

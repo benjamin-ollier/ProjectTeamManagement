@@ -12,19 +12,18 @@ public class TeamMember {
     @JoinColumn(name = "teamId", referencedColumnName = "teamId")
     private Team teamId;
     @ManyToOne
-    @JoinColumn(name = "userEmail", referencedColumnName = "email")
-    private User userEmail;
-    @ManyToOne
-    @JoinColumn(name = "userName", referencedColumnName = "name")
-    private User userName;
+    @JoinColumns({
+            @JoinColumn(name = "userIdentityEmail", referencedColumnName = "email"),
+            @JoinColumn(name = "userIdentityName", referencedColumnName = "name")
+    })
+    private User userIdentity;
     @Column(name = "roleInTeam")
     private String roleInTeam;
 
-    public TeamMember(Long teamMemberId, Team teamId, User userEmail, User userName, String roleInTeam) {
+    public TeamMember(Long teamMemberId, Team teamId, User userName, String roleInTeam) {
         this.teamMemberId = teamMemberId;
         this.teamId = teamId;
-        this.userEmail = userEmail;
-        this.userName = userName;
+        this.userIdentity = userIdentity;
         this.roleInTeam = roleInTeam;
     }
 
@@ -48,20 +47,12 @@ public class TeamMember {
         this.teamId = teamId;
     }
 
-    public User getUserEmail() {
-        return userEmail;
+    public User getUserIdentity() {
+        return userIdentity;
     }
 
-    public void setUserEmail(User userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public User getUserName() {
-        return userName;
-    }
-
-    public void setUserName(User userName) {
-        this.userName = userName;
+    public void setUserIdentity(User userEmail) {
+        this.userIdentity = userEmail;
     }
 
     public String getRoleInTeam() {

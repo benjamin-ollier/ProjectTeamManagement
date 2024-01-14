@@ -29,7 +29,7 @@ public class UserRepository {
 
     public User getUserByName(String name) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("FROM User U where U.name = :name", User.class)
+            return session.createQuery("FROM User U where U.userId.name = :name", User.class)
                     .setParameter("name", name)
                     .uniqueResult();
         } catch (Exception e) {
@@ -39,9 +39,8 @@ public class UserRepository {
     }
 
     public User getUserByEmail(String email) {
-        Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("FROM User U where U.email = :email", User.class)
+            return session.createQuery("FROM User U where U.id.email = :email", User.class)
                     .setParameter("email", email)
                     .uniqueResult();
         } catch (Exception e) {
@@ -55,7 +54,7 @@ public class UserRepository {
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
 
-            Query query = session.createQuery("DELETE FROM User WHERE name = :name or email = :email");
+            Query query = session.createQuery("DELETE FROM User U WHERE U.id.name = :name or U.id.email = :email");
             query.setParameter("name", name);
             query.setParameter("email", email);
             int result = query.executeUpdate();
@@ -94,17 +93,6 @@ public class UserRepository {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-    public List<DevSkill> getUserSkills(String identity) {
-        try (Session session = sessionFactory.openSession()) {
-            Query<DevSkill> query = session.createQuery("FROM DevSkill ds WHERE ds.userName.name = :identity OR ds.userEmail.email = :identity", DevSkill.class);
-            query.setParameter("identity", identity);
-            return query.list();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
         }
     }
 

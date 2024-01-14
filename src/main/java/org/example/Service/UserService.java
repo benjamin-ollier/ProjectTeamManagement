@@ -3,6 +3,7 @@ package org.example.Service;
 import org.example.Model.DevSkill;
 import org.example.Model.Technology;
 import org.example.Model.User;
+import org.example.Model.UserId;
 import org.example.Repository.UserRepository;
 import org.example.Shared.Util;
 
@@ -39,10 +40,11 @@ public class UserService {
             currentUser = userRepository.getUserByName(identity);
         }
         if (currentUser == null) {
-            return null;
+            throw new IllegalArgumentException("User not found for identity: " + identity);
         }
-        currentUser.setName(userToUpdate.getName());
-        currentUser.setEmail(userToUpdate.getEmail());
+        UserId userId = new UserId(userToUpdate.getUserId().getName(),userToUpdate.getUserId().getEmail());
+
+        currentUser.setUserId(userId);
         currentUser.setRole(userToUpdate.getRole());
 
 
@@ -57,14 +59,5 @@ public class UserService {
         return userRepository.deleteUserByNameAndEmail(name, email);
     }
 
-    public List<DevSkill> getUserSkills(String identity){
-        return userRepository.getUserSkills(identity);
-    }
-
-    public DevSkill addSkill(String identity, String technoName){
-        return null;
-    }
-    //check si il est deja dans une team
-    //check si c'est un dev
 
 }

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "projectTechnologie")
-public class ProjectTechnologie {
+public class ProjectTechnology {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,13 +15,13 @@ public class ProjectTechnologie {
     @JoinColumn(name = "techId", referencedColumnName = "techId")
     private Technology techId;
 
-    public ProjectTechnologie(int id, Project projectId, Technology techId) {
+    public ProjectTechnology(int id, Project projectId, Technology techId) {
         this.id = id;
         this.projectId = projectId;
         this.techId = techId;
     }
 
-    public ProjectTechnologie() {
+    public ProjectTechnology() {
 
     }
 
