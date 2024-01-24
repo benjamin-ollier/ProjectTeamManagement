@@ -1,12 +1,15 @@
 package org.example;
 
 import org.example.Controller.DevSkillController;
+import org.example.Controller.ProjectController;
 import org.example.Repository.DevSkillRepository;
+import org.example.Repository.ProjectRepository;
 import org.example.Repository.TechnologyRepository;
 import org.example.Repository.UserRepository;
 import io.javalin.Javalin;
 import org.example.Controller.UserController;
 import org.example.Service.DevSkillService;
+import org.example.Service.ProjectService;
 import org.example.Service.UserService;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -25,12 +28,16 @@ public class Main {
         DevSkillService devSkillService = new DevSkillService(devSkillRepository, technologyRepository, userRepository);
         DevSkillController devSkillController = new DevSkillController(devSkillService);
 
+        ProjectRepository projectRepository = new ProjectRepository((sessionFactory));
+        ProjectService projectService = new ProjectService(projectRepository);
+        ProjectController projectController = new ProjectController(projectService);
+
 
         Javalin app = Javalin.create().start(7070);
 
         userController.registerRoutes(app);
         devSkillController.registerRoutes(app);
-        //projectController.registerRoutes(app);
+        projectController.registerRoutes(app);
 
         app.error(404, ctx -> ctx.result("Resource not found"));
         app.error(500, ctx -> ctx.result("Internal server error"));

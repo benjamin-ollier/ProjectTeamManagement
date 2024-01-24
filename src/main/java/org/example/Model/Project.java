@@ -1,8 +1,12 @@
 package org.example.Model;
 
 import jakarta.persistence.*;
+import org.hibernate.grammars.hql.HqlParser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "project")
@@ -12,6 +16,9 @@ public class Project {
     private int projectId;
     @Column(name = "name")
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "teamId", referencedColumnName = "teamId")
+    private Team teamId;
 
     @Column(name = "priority")
     private String priority; // Valeurs possibles : "normale", "best effort", "critique"
@@ -21,6 +28,7 @@ public class Project {
 
     @Column(name = "startDate")
     private LocalDate startDate;
+
     @Column(name = "endDate")
     private LocalDate endDate;
 
@@ -96,5 +104,13 @@ public class Project {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Team getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Team teamId) {
+        this.teamId = teamId;
     }
 }

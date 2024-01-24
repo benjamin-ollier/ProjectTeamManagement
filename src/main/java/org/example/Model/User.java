@@ -17,10 +17,11 @@ public class User {
 
     @EmbeddedId
     private UserId userId;
-
     @Column(name = "role")
     private String role;
-
+    @ManyToOne
+    @JoinColumn(name = "teamId", referencedColumnName = "teamId")
+    private Team teamId;
     @Column(name = "lastTeamChangeDate")
     private LocalDate lastTeamChangeDate;
 
