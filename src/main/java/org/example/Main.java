@@ -2,14 +2,15 @@ package org.example;
 
 import org.example.Controller.DevSkillController;
 import org.example.Controller.ProjectController;
-import org.example.Repository.DevSkillRepository;
-import org.example.Repository.ProjectRepository;
-import org.example.Repository.TechnologyRepository;
-import org.example.Repository.UserRepository;
+import org.example.Controller.TeamController;
+import org.example.Model.Team;
+import org.example.Repository.*;
 import io.javalin.Javalin;
 import org.example.Controller.UserController;
+import org.example.Repository.Interface.DevSkillRepository;
 import org.example.Service.DevSkillService;
 import org.example.Service.ProjectService;
+import org.example.Service.TeamService;
 import org.example.Service.UserService;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -24,12 +25,17 @@ public class Main {
 
         TechnologyRepository technologyRepository = new TechnologyRepository(sessionFactory);
 
-        DevSkillRepository devSkillRepository = new DevSkillRepository(sessionFactory);
+        DevSkillRepository devSkillRepository = new JpaDevSkillRepository(sessionFactory);
         DevSkillService devSkillService = new DevSkillService(devSkillRepository, technologyRepository, userRepository);
         DevSkillController devSkillController = new DevSkillController(devSkillService);
 
+        TeamRepository teamRepository = new TeamRepository(sessionFactory);
+        TeamService teamService =  new TeamService(teamRepository, userRepository);
+        TeamController teamController = new TeamController(teamService);
+
         ProjectRepository projectRepository = new ProjectRepository((sessionFactory));
-        ProjectService projectService = new ProjectService(projectRepository);
+        ProjectTechnologyRepository projectTechnologyRepository = new ProjectTechnologyRepository(sessionFactory);
+        ProjectService projectService = new ProjectService(projectRepository,projectTechnologyRepository,technologyRepository,teamService);
         ProjectController projectController = new ProjectController(projectService);
 
 
@@ -38,6 +44,7 @@ public class Main {
         userController.registerRoutes(app);
         devSkillController.registerRoutes(app);
         projectController.registerRoutes(app);
+        teamController.registerRoutes(app);
 
         app.error(404, ctx -> ctx.result("Resource not found"));
         app.error(500, ctx -> ctx.result("Internal server error"));

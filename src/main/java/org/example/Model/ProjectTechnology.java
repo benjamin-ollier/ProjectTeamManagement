@@ -9,20 +9,32 @@ public class ProjectTechnology {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "projectId", referencedColumnName = "projectId")
-    private Project projectId;
+    @JoinColumn(name = "name")
+    private Project projectName;
     @ManyToOne
     @JoinColumn(name = "techId", referencedColumnName = "techId")
     private Technology techId;
 
-    public ProjectTechnology(int id, Project projectId, Technology techId) {
+    @Column(name = "devCount")
+    private int devCount;
+
+    public ProjectTechnology(int id, Project projectName, Technology techId) {
         this.id = id;
-        this.projectId = projectId;
+        this.projectName = projectName;
         this.techId = techId;
     }
 
     public ProjectTechnology() {
 
+    }
+
+
+    public int getDevCount() {
+        return devCount;
+    }
+
+    public void setDevCount(int devCount) {
+        this.devCount = devCount;
     }
 
     public int getId() {
@@ -33,12 +45,12 @@ public class ProjectTechnology {
         this.id = id;
     }
 
-    public Project getProjectId() {
-        return projectId;
+    public Project getProjectName() {
+        return projectName;
     }
 
-    public void setProjectId(Project projectId) {
-        this.projectId = projectId;
+    public void setProjectName(Project projectName) {
+        this.projectName = projectName;
     }
 
     public Technology getTechId() {

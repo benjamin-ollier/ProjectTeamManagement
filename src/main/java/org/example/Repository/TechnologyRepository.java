@@ -46,22 +46,19 @@ public class TechnologyRepository {
         }
     }
 
-    public boolean addTechnology(Technology technology) {
+    public Technology addTechnology(Technology technology) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
 
             try {
                 session.persist(technology);
                 transaction.commit();
-                return true;
+                return technology;
             } catch (PersistenceException e) {
                 transaction.rollback();
                 e.printStackTrace();
-                return false;
+                return null;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
     }
 

@@ -3,10 +3,12 @@ package org.example.Controller;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
 import org.example.Model.DevSkill;
+import org.example.Model.Dto.AvailableDev;
 import org.example.Model.Technology;
 import org.example.Model.User;
 import org.example.Service.UserService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +24,7 @@ public class UserController {
         app.get("/user/name/{name}", getUserByName);
         app.get("/user/email/{email}", getUserByEmail);
         app.get("/users", getAllUsers);
+        app.get("/users/findAvailableDevelopers", findAvailableDevelopers);
         app.put("/user/update/{identity}", updateUser);
         app.delete("/user/delete/{name}/{email}", deleteUser);
 
@@ -47,6 +50,16 @@ public class UserController {
             ctx.json(user);
         } else {
             ctx.status(404).result("User not found");
+        }
+    };
+
+    public Handler findAvailableDevelopers = ctx -> {
+        AvailableDev competence = ctx.bodyAsClass(AvailableDev.class);
+        List<User> user = userService.getAllAvailableDevelopers(competence);
+        if (!user.isEmpty()) {
+            ctx.json(user);
+        } else {
+            ctx.status(404).result("Users not found");
         }
     };
 

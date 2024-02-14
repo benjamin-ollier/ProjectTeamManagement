@@ -1,7 +1,6 @@
 package org.example.Service;
 
-import org.example.Model.DevSkill;
-import org.example.Model.Technology;
+import org.example.Model.Dto.AvailableDev;
 import org.example.Model.User;
 import org.example.Model.UserId;
 import org.example.Repository.UserRepository;
@@ -42,9 +41,9 @@ public class UserService {
         if (currentUser == null) {
             throw new IllegalArgumentException("User not found for identity: " + identity);
         }
-        UserId userId = new UserId(userToUpdate.getUserId().getName(),userToUpdate.getUserId().getEmail());
+        UserId userId = new UserId(userToUpdate.getUserIdentifiant().getName(),userToUpdate.getUserIdentifiant().getEmail());
 
-        currentUser.setUserId(userId);
+        currentUser.setUserIdentifiant(userId);
         currentUser.setRole(userToUpdate.getRole());
 
 
@@ -60,4 +59,11 @@ public class UserService {
     }
 
 
+    public List<User> getAllAvailableDevelopers(AvailableDev devs) {
+        List<User> availableUsers = userRepository.getAvailableUsersWithRequiredSkillsAndLevel(devs.getSkills(),devs.getLevel(),devs.getStartDate(),devs.getEndDate());
+        if(availableUsers.isEmpty()){
+            throw new IllegalArgumentException("Aucune personne trouvé pour cette tranche de date");
+        }
+        return availableUsers;
+    }
 }

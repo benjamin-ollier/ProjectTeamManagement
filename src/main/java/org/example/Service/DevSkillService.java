@@ -3,19 +3,14 @@ package org.example.Service;
 import org.example.Model.DevSkill;
 import org.example.Model.Technology;
 import org.example.Model.User;
-import org.example.Repository.DevSkillRepository;
+import org.example.Shared.Util;
+import org.example.Repository.Interface.DevSkillRepository;
 import org.example.Repository.TechnologyRepository;
 import org.example.Repository.UserRepository;
-import org.example.Shared.Util;
-
 import java.util.List;
 
 public class DevSkillService {
-    enum ExperienceCategory {
-        JUNIOR,
-        EXPERIENCED,
-        EXPERT
-    }
+
     private final DevSkillRepository devSkillRepository;
     private final TechnologyRepository technologyRepository;
     private final UserRepository userRepository;
@@ -39,7 +34,7 @@ public class DevSkillService {
 
         Technology newTechnology = getOrCreateTechnology(technology);
 
-        DevSkill devSkillExist = getDevSkillIdIfExists(currentUser.getUserId().getName(), currentUser.getUserId().getEmail(), newTechnology.getTechId());
+        DevSkill devSkillExist = getDevSkillIdIfExists(currentUser.getUserIdentifiant().getName(), currentUser.getUserIdentifiant().getEmail(), newTechnology.getTechId());
 
         if (devSkillExist != null) {
             determineExperience(devSkillExist, yearsOfExperience);
@@ -87,11 +82,11 @@ public class DevSkillService {
     private void determineExperience(DevSkill newDevSkill, int yearsOfExperience) {
         newDevSkill.setYearsOfExperience(yearsOfExperience);
         if (yearsOfExperience >= 0 && yearsOfExperience <= 3) {
-            newDevSkill.setLevel(String.valueOf(ExperienceCategory.JUNIOR));
+            newDevSkill.setLevel(String.valueOf(Util.ExperienceCategory.JUNIOR));
         } else if (yearsOfExperience > 3 && yearsOfExperience <= 5) {
-            newDevSkill.setLevel(String.valueOf(ExperienceCategory.EXPERIENCED));
+            newDevSkill.setLevel(String.valueOf(Util.ExperienceCategory.EXPERIENCED));
         } else if (yearsOfExperience > 5) {
-            newDevSkill.setLevel(String.valueOf(ExperienceCategory.EXPERT));
+            newDevSkill.setLevel(String.valueOf(Util.ExperienceCategory.EXPERT));
         }
     }
 
@@ -99,6 +94,8 @@ public class DevSkillService {
     public List<DevSkill> getUserByTechnoAndLevel(String level, String technology) {
         return devSkillRepository.getDevsBySkillAndLevel(technology, level);
     }
+
+
 
 
 }

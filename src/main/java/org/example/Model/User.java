@@ -2,26 +2,14 @@ package org.example.Model;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 @Entity
 @Table(name = "user")
 public class User {
-    /*
     @EmbeddedId
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
-    @EmbeddedId
-    @Column(name = "name", nullable = false, unique=true)
-    private String name;*/
-
-    @EmbeddedId
-    private UserId userId;
+    private UserId userIdentifiant;
     @Column(name = "role")
     private String role;
-    @ManyToOne
-    @JoinColumn(name = "teamId", referencedColumnName = "teamId")
-    private Team teamId;
     @Column(name = "lastTeamChangeDate")
     private LocalDate lastTeamChangeDate;
 
@@ -29,18 +17,18 @@ public class User {
     }
 
 
-    public User(UserId userId, String role, LocalDate lastTeamChangeDate) {
-        this.userId = userId;
+    public User(UserId userIdentifiant, String role, LocalDate lastTeamChangeDate) {
+        this.userIdentifiant = userIdentifiant;
         this.role = role;
         this.lastTeamChangeDate = lastTeamChangeDate;
     }
 
-    public UserId getUserId() {
-        return userId;
+    public UserId getUserIdentifiant() {
+        return userIdentifiant;
     }
 
-    public void setUserId(UserId userId) {
-        this.userId = userId;
+    public void setUserIdentifiant(UserId userId) {
+        this.userIdentifiant = userId;
     }
 
     public String getRole() {

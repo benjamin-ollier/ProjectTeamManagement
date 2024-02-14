@@ -6,13 +6,16 @@ import jakarta.persistence.*;
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int teamId;
+    private Long teamId;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "status")
     private String status;
 
-    public Team(int teamId, String status) {
-        this.teamId = teamId;
+    public Team(String name, String status) {
+        this.name = name;
         this.status = status;
     }
 
@@ -20,12 +23,12 @@ public class Team {
 
     }
 
-    public int getTeamId() {
-        return teamId;
+    public String getName() {
+        return name;
     }
 
-    public void setTeamId(int teamId) {
-        this.teamId = teamId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getStatus() {
@@ -34,5 +37,13 @@ public class Team {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Long getId() {
+        return teamId;
+    }
+
+    public void setId(Long teamId) {
+        this.teamId = teamId;
     }
 }

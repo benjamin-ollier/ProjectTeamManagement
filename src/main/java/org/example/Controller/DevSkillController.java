@@ -15,7 +15,7 @@ public class DevSkillController {
     }
 
     public void registerRoutes(Javalin app) {
-        app.get("/skills/skills/{identity}", getUserSkills);
+        app.get("/skills/user/{identity}", getUserSkills);
         app.post("/skill/addOrUpdateSkill/{identity}/{technology}/{yearsOfExperience}", addOrUpdateSkill);
         app.get("/skill/searchByTechnoAndLevel/{technology}/{level}", getUserByTechnoAndLevel);
 

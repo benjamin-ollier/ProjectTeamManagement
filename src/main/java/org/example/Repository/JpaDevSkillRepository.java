@@ -1,21 +1,20 @@
 package org.example.Repository;
 
 import org.example.Model.DevSkill;
+import org.example.Repository.Interface.DevSkillRepository;
 import org.hibernate.SessionFactory;
-import org.example.Model.DevSkill;
-import org.example.Model.User;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 
 import java.util.Collections;
 import java.util.List;
-public class DevSkillRepository {
+
+public class JpaDevSkillRepository implements DevSkillRepository {
     private final SessionFactory sessionFactory;
 
-    public DevSkillRepository(SessionFactory sessionFactory) {
+    public JpaDevSkillRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
@@ -23,7 +22,7 @@ public class DevSkillRepository {
 
     public List<DevSkill> getUserSkills(String identity) {
         try (Session session = sessionFactory.openSession()) {
-            Query<DevSkill> query = session.createQuery("FROM DevSkill ds WHERE ds.userEmail.name = :identity OR ds.userEmail.email = :identity", DevSkill.class);
+            Query<DevSkill> query = session.createQuery("FROM DevSkill ds WHERE ds.userIdentity.userIdentifiant.name = :identity OR ds.userIdentity.userIdentifiant.email = :identity", DevSkill.class);
             query.setParameter("identity", identity);
             return query.list();
         } catch (Exception e) {
@@ -61,7 +60,7 @@ public class DevSkillRepository {
     public DevSkill getDevSkillIfExists(String name, String email, int techId) {
         try (Session session = sessionFactory.openSession()) {
             Query<DevSkill> query = session.createQuery(
-                    "FROM DevSkill ds WHERE ds.userIdentity.userId.email = :email AND ds.userIdentity.userId.name = :name AND ds.techId.techId = :techId", DevSkill.class);
+                    "FROM DevSkill ds WHERE ds.userIdentity.userIdentifiant.email = :email AND ds.userIdentity.userIdentifiant.name = :name AND ds.techId.techId = :techId", DevSkill.class);
             query.setParameter("name", name);
             query.setParameter("email", email);
             query.setParameter("techId", techId);

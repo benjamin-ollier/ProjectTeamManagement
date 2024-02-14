@@ -6,14 +6,14 @@ import org.hibernate.grammars.hql.HqlParser;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "project")
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int projectId;
     @Column(name = "name")
     private String name;
     @ManyToOne
@@ -35,12 +35,14 @@ public class Project {
     @Column(name = "status")
     private String status; // Valeurs possibles : "en attente", "en cours", "terminé", "annulé"
 
+    @OneToMany(mappedBy = "projectName", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProjectTechnology> technologies = new ArrayList<>();
+
     public Project() {
     }
 
-    public Project(int projectId, String name, String priority, String description,
+    public Project(String name, String priority, String description,
                    LocalDate startDate, LocalDate endDate, String status) {
-        this.projectId = projectId;
         this.name = name;
         this.priority = priority;
         this.description = description;
@@ -50,14 +52,29 @@ public class Project {
     }
 
     // Getters et setters pour tous les attributs
-    public int getProjectId() {
-        return projectId;
+/*
+    public List<ProjectTechnology> getTechnologies() {
+        return technologies;
     }
 
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
+    public void setTechnologies(List<ProjectTechnology> technologies) {
+        this.technologies = technologies;
     }
 
+    // Méthodes pour ajouter et supprimer des technologies
+    public void addTechnology(ProjectTechnology projectTechnology) {
+        this.technologies.add(projectTechnology);
+    }
+
+    public void removeTechnology(ProjectTechnology technology) {
+        technologies.remove(technology);
+        technology.setProjectName(null);
+    }*/
+
+    public void addTechnology(ProjectTechnology technology) {
+        technologies.add(technology);
+        technology.setProjectName(this);
+    }
     public String getName() {
         return name;
     }
