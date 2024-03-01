@@ -19,6 +19,7 @@ Pour exécuter ce projet, vous aurez besoin de :
 
 ```<property name="connection.username">root</property>```
 ```<property name="connection.password">root</property>```
+* Modifier la ligne hbm2ddl.auto à "CREATE" pour migrer les données
 
 ## Démarrage de l'Application
 Construisez l'application avec Maven :
