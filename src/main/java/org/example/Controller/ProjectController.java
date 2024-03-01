@@ -28,6 +28,7 @@ public class ProjectController {
         app.put("/project/start/{projectName}", startProject);
         app.put("/project/finish/{projectName}", finishProject);
         app.put("/project/cancel/{projectName}", cancelProject);
+        app.get("/project/determineNextProject",determineNextProject);
     }
 
     public Handler createProject = ctx -> {
@@ -76,4 +77,8 @@ public class ProjectController {
         ctx.json(project);
     };
 
+    public Handler determineNextProject = ctx -> {
+        Project project = projectService.determineNextProject();
+        ctx.json(project);
+    };
 }

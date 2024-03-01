@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "04e42122-50ef-4608-9ea6-7600cf5d944a",
+		"name": "user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25526860",
+		"_collection_link": "https://planetary-sunset-898498.postman.co/workspace/esgi-projectTeamManagement~2fa7768a-6c88-4004-9da7-0c6390572bb1/collection/25526860-04e42122-50ef-4608-9ea6-7600cf5d944a?action=share&source=collection_link&creator=25526860"
+	},
+	"item": [
+		{
+			"name": "get a user by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/user/name/ben3",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"name",
+						"ben3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get a user by his mail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/user/email/ben@gmail.com",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"email",
+						"ben@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a user by mail",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/user/delete/ben/ben@gmail.com",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"delete",
+						"ben",
+						"ben@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update a user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": {\n        \"name\": \"ben2\",\n        \"email\": \"ben2@gmail.com\"\n    },\n    \"role\": \"dev\",\n    \"lastTeamChangeDate\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/user/update/ben2@gmail.com",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"update",
+						"ben2@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create a user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userIdentifiant\": {\n        \"name\": \"ben3\",\n        \"email\": \"ben3@gmail.com\"\n    },\n    \"role\": null,\n    \"lastTeamChangeDate\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/user/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "available users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"startDate\": \"2023-04-01\",\n  \"endDate\": \"2023-05-01\",\n  \"skills\": [\"java\"],\n  \"level\": \"EXPERIENCED\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/skill/findAvailableDevelopers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"skill",
+						"findAvailableDevelopers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get developper cv",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/user/getDeveloperCv/ben",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"getDeveloperCv",
+						"ben"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

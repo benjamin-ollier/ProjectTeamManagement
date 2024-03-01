@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "3cb555d3-777d-465e-a570-de0ae9158668",
+		"name": "project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25526860",
+		"_collection_link": "https://planetary-sunset-898498.postman.co/workspace/esgi-projectTeamManagement~2fa7768a-6c88-4004-9da7-0c6390572bb1/collection/25526860-3cb555d3-777d-465e-a570-de0ae9158668?action=share&source=collection_link&creator=25526860"
+	},
+	"item": [
+		{
+			"name": "get all projects InProgress",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/project/getAllInProgress",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"project",
+						"getAllInProgress"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get next project start",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/project/determineNextProject",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"project",
+						"determineNextProject"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all projects finished",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/project/getAllFinished",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"project",
+						"getAllFinished"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all projects planned",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/project/getAllPlanned",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"project",
+						"getAllPlanned"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create a project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"projet1\",\n  \"priority\": \"critique\",\n  \"description\": \"Ce projet vise à développer une nouvelle plateforme révolutionnaire.\",\n  \"startDate\": \"2024-01-15\",\n  \"endDate\": \"2024-12-31\",\n  \"technologies\": [\n    {\n      \"techName\": \"java\",\n      \"devCount\": 1\n    },\n    {\n      \"techName\": \"python\",\n      \"devCount\": 2\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/project/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"project",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "start project",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/project/start/Projet innnovation",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"project",
+						"start",
+						"Projet innnovation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "finish project",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Projet innnovation\",\n  \"priority\": \"critique\",\n  \"description\": \"Ce projet vise à développer une nouvelle plateforme révolutionnaire.\",\n  \"startDate\": \"2024-01-15\",\n  \"endDate\": \"2024-12-31\",\n  \"status\": \"planned\",\n  \"technologies\": [\n    {\n      \"techName\": \"Java\",\n      \"devCount\": 3\n    },\n    {\n      \"techName\": \"React\",\n      \"devCount\": 2\n    },\n    {\n      \"techName\": \"Docker\",\n      \"devCount\": 1\n    },\n    {\n      \"techName\": \"Kubernetes\",\n      \"devCount\": 1\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/project/finish/Projet innnovation",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"project",
+						"finish",
+						"Projet innnovation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel project",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Projet innnovation\",\n  \"priority\": \"critique\",\n  \"description\": \"Ce projet vise à développer une nouvelle plateforme révolutionnaire.\",\n  \"startDate\": \"2024-01-15\",\n  \"endDate\": \"2024-12-31\",\n  \"status\": \"planned\",\n  \"technologies\": [\n    {\n      \"techName\": \"Java\",\n      \"devCount\": 3\n    },\n    {\n      \"techName\": \"React\",\n      \"devCount\": 2\n    },\n    {\n      \"techName\": \"Docker\",\n      \"devCount\": 1\n    },\n    {\n      \"techName\": \"Kubernetes\",\n      \"devCount\": 1\n    }\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/project/cancel/Projet innnovation",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"project",
+						"cancel",
+						"Projet innnovation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get project technologies by project name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/project/getTechnologysByProject/Projet innnovation",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"project",
+						"getTechnologysByProject",
+						"Projet innnovation"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "projectName",
+			"value": "projectName"
+		}
+	]
+}

@@ -1,5 +1,6 @@
 org/example/Main.class
 org/example/Model/Dto/ProjectDTO.class
+org/example/Service/TeamService/TeamValidationService.class
 org/example/Model/User.class
 org/example/Controller/TeamController.class
 org/example/Model/TeamMember.class
@@ -24,7 +25,7 @@ org/example/Model/DevSkill.class
 org/example/Repository/TeamRepository.class
 org/example/Shared/Util.class
 org/example/Model/Dto/TeamMemberDto.class
-org/example/Service/TeamService.class
+org/example/Service/TeamService/TeamService.class
 org/example/Controller/DevSkillController.class
 org/example/Controller/UserController.class
 org/example/Model/Dto/TechnologyDTO.class

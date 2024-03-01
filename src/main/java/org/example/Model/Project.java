@@ -51,26 +51,6 @@ public class Project {
         this.status = status;
     }
 
-    // Getters et setters pour tous les attributs
-/*
-    public List<ProjectTechnology> getTechnologies() {
-        return technologies;
-    }
-
-    public void setTechnologies(List<ProjectTechnology> technologies) {
-        this.technologies = technologies;
-    }
-
-    // Méthodes pour ajouter et supprimer des technologies
-    public void addTechnology(ProjectTechnology projectTechnology) {
-        this.technologies.add(projectTechnology);
-    }
-
-    public void removeTechnology(ProjectTechnology technology) {
-        technologies.remove(technology);
-        technology.setProjectName(null);
-    }*/
-
     public void addTechnology(ProjectTechnology technology) {
         technologies.add(technology);
         technology.setProjectName(this);

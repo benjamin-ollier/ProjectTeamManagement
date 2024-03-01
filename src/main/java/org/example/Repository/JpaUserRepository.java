@@ -2,6 +2,7 @@ package org.example.Repository;
 
 import org.example.Model.Dto.TeamMemberDto;
 import org.example.Model.User;
+import org.example.Repository.Interface.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,10 +14,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class UserRepository {
+public class JpaUserRepository implements UserRepository {
     private final SessionFactory sessionFactory;
 
-    public UserRepository(SessionFactory sessionFactory) {
+    public JpaUserRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

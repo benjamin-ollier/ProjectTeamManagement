@@ -1,20 +1,16 @@
 package org.example.Repository;
 
-import jakarta.persistence.PersistenceException;
-import org.example.Model.Project;
 import org.example.Model.ProjectTechnology;
-import org.example.Model.Technology;
+import org.example.Repository.Interface.ProjectTechnologyRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class ProjectTechnologyRepository {
+public class JpaProjectTechnologyRepository implements ProjectTechnologyRepository {
     private final SessionFactory sessionFactory;
 
-    public ProjectTechnologyRepository(SessionFactory sessionFactory) {
+    public JpaProjectTechnologyRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

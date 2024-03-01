@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class DevSkill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int devSkillId;
+    private Long devSkillId;
     @ManyToOne
     @JoinColumn(name = "teamId", referencedColumnName = "teamId",  nullable = true)
     private Team teamId;
@@ -27,7 +27,7 @@ public class DevSkill {
     @Column(name = "level",  nullable = true)
     private String level;
 
-    public DevSkill(int devSkillId, Team teamId, User userIdentity, Technology techId, int yearsOfExperience) {
+    public DevSkill(Long devSkillId, Team teamId, User userIdentity, Technology techId, int yearsOfExperience) {
         this.devSkillId = devSkillId;
         this.teamId = teamId;
         this.userIdentity = userIdentity;
@@ -39,11 +39,11 @@ public class DevSkill {
 
     }
 
-    public int getDevSkillId() {
+    public Long getDevSkillId() {
         return devSkillId;
     }
 
-    public void setDevSkillId(int devSkillId) {
+    public void setDevSkillId(Long devSkillId) {
         this.devSkillId = devSkillId;
     }
 

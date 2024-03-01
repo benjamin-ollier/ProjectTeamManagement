@@ -1,5 +1,7 @@
 package org.example.Model.Dto;
 
+import org.example.Model.DevSkill;
+
 import java.util.List;
 
 public class TeamMemberDto {
@@ -27,8 +29,8 @@ public class TeamMemberDto {
         this.members = members;
     }
 
-    // Classe interne pour représenter un identifiant de membre
     public static class MemberIdentifier {
+        public Long devSkillId;
         private String name;
         private String email;
 
@@ -37,9 +39,18 @@ public class TeamMemberDto {
         public MemberIdentifier() {
         }
 
-        public MemberIdentifier(String name, String email) {
+        public MemberIdentifier(String name, String email,Long devSkillId) {
             this.name = name;
             this.email = email;
+            this.devSkillId = devSkillId;
+        }
+
+        public Long getDevSkillId() {
+            return devSkillId;
+        }
+
+        public void setDevSkillId(Long devSkillId) {
+            this.devSkillId = devSkillId;
         }
 
         public String getName() {

@@ -3,27 +3,30 @@ package org.example.Service;
 import org.example.Model.DevSkill;
 import org.example.Model.Technology;
 import org.example.Model.User;
+import org.example.Repository.JpaDevSkillRepository;
+import org.example.Repository.JpaProjectRepository;
 import org.example.Shared.Util;
 import org.example.Repository.Interface.DevSkillRepository;
-import org.example.Repository.TechnologyRepository;
-import org.example.Repository.UserRepository;
+import org.example.Repository.JpaTechnologyRepository;
+import org.example.Repository.JpaUserRepository;
+import org.example.Model.Dto.AvailableDev;
 import java.util.List;
 
 public class DevSkillService {
 
-    private final DevSkillRepository devSkillRepository;
-    private final TechnologyRepository technologyRepository;
-    private final UserRepository userRepository;
+    private final JpaDevSkillRepository jpaDevSkillRepository;
+    private final JpaTechnologyRepository jpaTechnologyRepository;
+    private final JpaUserRepository jpaUserRepository;
 
 
-    public DevSkillService(DevSkillRepository devSkillRepository, TechnologyRepository technologyRepository, UserRepository userRepository) {
-        this.devSkillRepository = devSkillRepository;
-        this.technologyRepository = technologyRepository;
-        this.userRepository = userRepository;
+    public DevSkillService(JpaDevSkillRepository jpaDevSkillRepository, JpaTechnologyRepository jpaTechnologyRepository, JpaUserRepository jpaUserRepository) {
+        this.jpaDevSkillRepository = jpaDevSkillRepository;
+        this.jpaTechnologyRepository = jpaTechnologyRepository;
+        this.jpaUserRepository = jpaUserRepository;
     }
 
     public List<DevSkill> getUserSkills(String identity){
-        return devSkillRepository.getUserSkills(identity);
+        return jpaDevSkillRepository.getUserSkills(identity);
     }
 
     public DevSkill addOrUpdateSkill(String identity, String technology, int yearsOfExperience){
@@ -36,32 +39,36 @@ public class DevSkillService {
 
         DevSkill devSkillExist = getDevSkillIdIfExists(currentUser.getUserIdentifiant().getName(), currentUser.getUserIdentifiant().getEmail(), newTechnology.getTechId());
 
+        if(yearsOfExperience <0) {
+            throw new IllegalArgumentException("Année d'experience pas correcte");
+        }
+
         if (devSkillExist != null) {
             determineExperience(devSkillExist, yearsOfExperience);
-            return devSkillRepository.update(devSkillExist);
+            return jpaDevSkillRepository.update(devSkillExist);
         } else {
             devSkillExist =createDevSkill(currentUser, newTechnology, yearsOfExperience);
             determineExperience(devSkillExist, yearsOfExperience);
-            return devSkillRepository.save(devSkillExist);
+            return jpaDevSkillRepository.save(devSkillExist);
         }
     }
 
-    private User getUserByIdentity(String identity) {
+    public User getUserByIdentity(String identity) {
         if (Util.isEmail(identity)) {
-            return userRepository.getUserByEmail(identity);
+            return jpaUserRepository.getUserByEmail(identity);
         } else {
-            return userRepository.getUserByName(identity);
+            return jpaUserRepository.getUserByName(identity);
         }
     }
 
-    private Technology getOrCreateTechnology(String technology) {
+    public Technology getOrCreateTechnology(String technology) {
         Technology newTechnology = new Technology();
         newTechnology.setName(technology);
 
-        if (!technologyRepository.technologieExists(technology)) {
-            technologyRepository.addTechnology(newTechnology);
+        if (!jpaTechnologyRepository.technologieExists(technology)) {
+            jpaTechnologyRepository.addTechnology(newTechnology);
         } else {
-            newTechnology = technologyRepository.getTechnologyByName(technology);
+            newTechnology = jpaTechnologyRepository.getTechnologyByName(technology);
         }
 
         return newTechnology;
@@ -76,7 +83,7 @@ public class DevSkillService {
     }
 
     private DevSkill getDevSkillIdIfExists(String name, String email, int techId) {
-        return devSkillRepository.getDevSkillIfExists(name, email, techId);
+        return jpaDevSkillRepository.getDevSkillIfExists(name, email, techId);
     }
 
     private void determineExperience(DevSkill newDevSkill, int yearsOfExperience) {
@@ -92,9 +99,18 @@ public class DevSkillService {
 
 
     public List<DevSkill> getUserByTechnoAndLevel(String level, String technology) {
-        return devSkillRepository.getDevsBySkillAndLevel(technology, level);
+        return jpaDevSkillRepository.getDevsBySkillAndLevel(technology, level);
     }
 
+
+
+    public List<DevSkill> getAllAvailableDeveloperSkills(AvailableDev devs) {
+        List<DevSkill> availableDevSkills = jpaDevSkillRepository.getAvailableDevSkillsWithRequiredSkillsAndLevel(devs.getSkills(), devs.getLevel(), devs.getStartDate(), devs.getEndDate());
+        if (availableDevSkills.isEmpty()) {
+            throw new IllegalArgumentException("Aucune compétence trouvée pour cette tranche de date avec les critères spécifiés.");
+        }
+        return availableDevSkills;
+    }
 
 
 

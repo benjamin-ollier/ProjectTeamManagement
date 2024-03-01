@@ -21,14 +21,27 @@ public class TeamMember {
     @JoinColumn(name = "teamId", referencedColumnName = "teamId")
     private Team teamId;
 
-    public TeamMember(Long id, User userIdentity, Team teamId) {
+    @ManyToOne
+    @JoinColumn(name = "devskill")
+    private DevSkill devskill;
+
+    public TeamMember(Long id, User userIdentity, Team teamId, DevSkill devskill) {
         this.id = id;
         this.userIdentity = userIdentity;
         this.teamId = teamId;
+        this.devskill = devskill;
     }
 
     public TeamMember(){
 
+    }
+
+    public DevSkill getDevskill() {
+        return devskill;
+    }
+
+    public void setDevskill(DevSkill devskill) {
+        this.devskill = devskill;
     }
 
     public Long getId() {

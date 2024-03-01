@@ -3,6 +3,8 @@ package org.example.Controller;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
 import org.example.Model.DevSkill;
+import org.example.Model.Dto.AvailableDev;
+import org.example.Model.User;
 import org.example.Service.DevSkillService;
 
 import java.util.List;
@@ -18,7 +20,7 @@ public class DevSkillController {
         app.get("/skills/user/{identity}", getUserSkills);
         app.post("/skill/addOrUpdateSkill/{identity}/{technology}/{yearsOfExperience}", addOrUpdateSkill);
         app.get("/skill/searchByTechnoAndLevel/{technology}/{level}", getUserByTechnoAndLevel);
-
+        app.get("/skill/findAvailableDevelopers", findAvailableDevelopers);
     }
 
     public Handler getUserSkills = ctx -> {
@@ -42,5 +44,15 @@ public class DevSkillController {
         String technology = ctx.pathParam("technology");
         List<DevSkill> users = devSkillService.getUserByTechnoAndLevel(level,technology);
         ctx.status(201).json(users);
+    };
+
+    public Handler findAvailableDevelopers = ctx -> {
+        AvailableDev competence = ctx.bodyAsClass(AvailableDev.class);
+        List<DevSkill> availableDev = devSkillService.getAllAvailableDeveloperSkills(competence);
+        if (!availableDev.isEmpty()) {
+            ctx.json(availableDev);
+        } else {
+            ctx.status(404).result("Available users not found");
+        }
     };
 }

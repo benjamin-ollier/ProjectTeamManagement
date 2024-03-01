@@ -4,28 +4,29 @@ import org.example.Model.*;
 import org.example.Model.Dto.ProjectDTO;
 import org.example.Model.Dto.TechnologyDTO;
 import org.example.Repository.*;
+import org.example.Service.TeamService.TeamService;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProjectService {
-    private final ProjectRepository projectRepository;
-    private final TechnologyRepository technologyRepository;
-    private final ProjectTechnologyRepository projectTechnologyRepository;
+    private final JpaProjectRepository jpaProjectRepository;
+    private final JpaTechnologyRepository jpaTechnologyRepository;
+    private final JpaProjectTechnologyRepository jpaProjectTechnologyRepository;
     private final TeamService teamService;
 
 
-    public ProjectService(ProjectRepository projectRepository, ProjectTechnologyRepository projectTechnologyRepository, TechnologyRepository technologyRepository, TeamService teamService) {
-        this.projectRepository = projectRepository;
-        this.projectTechnologyRepository = projectTechnologyRepository;
-        this.technologyRepository = technologyRepository;
+    public ProjectService(JpaProjectRepository jpaProjectRepository, JpaProjectTechnologyRepository jpaProjectTechnologyRepository, JpaTechnologyRepository jpaTechnologyRepository, TeamService teamService) {
+        this.jpaProjectRepository = jpaProjectRepository;
+        this.jpaProjectTechnologyRepository = jpaProjectTechnologyRepository;
+        this.jpaTechnologyRepository = jpaTechnologyRepository;
         this.teamService = teamService;
     }
 
 
     public Project createProject(ProjectDTO projectDTO) {
-        if (projectRepository.existsProjectByName(projectDTO.getName())) {
+        if (jpaProjectRepository.existsProjectByName(projectDTO.getName())) {
             throw new IllegalArgumentException("Ce nom de projet existe déjà");
         }
 
@@ -53,68 +54,121 @@ public class ProjectService {
             project.addTechnology(projectTechnology);
         }
         
-        projectRepository.create(project);
+        jpaProjectRepository.create(project);
 
         return project;
     }
 
 
-    private Technology getOrCreateTechnology(String technology) {
+    public Technology getOrCreateTechnology(String technology) {
         Technology newTechnology = new Technology();
         newTechnology.setName(technology);
 
-        if (!technologyRepository.technologieExists(technology)) {
-            technologyRepository.addTechnology(newTechnology);
+        if (!jpaTechnologyRepository.technologieExists(technology)) {
+            jpaTechnologyRepository.addTechnology(newTechnology);
         } else {
-            newTechnology = technologyRepository.getTechnologyByName(technology);
+            newTechnology = jpaTechnologyRepository.getTechnologyByName(technology);
         }
 
         return newTechnology;
     }
 
     public List<Project> getProjectInProgress() {
-        return projectRepository.getProjectInProgress();
+        return jpaProjectRepository.getProjectInProgress();
     }
 
     public List<Project> getProjectFinished() {
-        return projectRepository.getProjectFinished();
+        return jpaProjectRepository.getProjectFinished();
     }
 
     public List<Project> getProjectPlanned() {
-        return projectRepository.getProjectPlanned();
+        return jpaProjectRepository.getProjectPlanned();
     }
 
     public List<Project> getProject() {
-        return projectRepository.getProjectInProgress();
+        return jpaProjectRepository.getProjectInProgress();
     }
 
     public List<ProjectTechnology> getProjectTechnologys(String projectName) {
-        return projectTechnologyRepository.getTechnologyByProjectName(projectName);
+        return jpaProjectTechnologyRepository.getTechnologyByProjectName(projectName);
     }
 
     public Project startProject(String projectName) {
-        Project project = projectRepository.getProjectByName(projectName);
-        if (project != null && "en attente".equals(project.getStatus())) {
-            project.setStatus("en cours");
+        Project project = getProjectByName(projectName);
+        if (project == null) {
+            throw new IllegalArgumentException("Projet non trouvé avec le nom : " + projectName);
+        }
+        if (!"planned".equals(project.getStatus())) {
+            throw new IllegalArgumentException("Le projet n'est pas dans un état pouvant être démarré.");
+        }
+        if (project != null && "planned".equals(project.getStatus())) {
+            project.setStatus("inprogress");
             project.setStartDate(LocalDate.now());
         }
-        return project;
+        return jpaProjectRepository.updateProject(projectName,project);
     }
 
     public Project finishProject(String projectName) {
-        Project project = projectRepository.getProjectByName(projectName);
-        if (project != null && "en cours".equals(project.getStatus())) {
-            project.setStatus("terminé");
+        Project project = getProjectByName(projectName);
+        if (project == null) {
+            throw new IllegalArgumentException("Projet non trouvé avec le nom : " + projectName);
+        }
+        if (!"inprogress".equals(project.getStatus())) {
+            throw new IllegalArgumentException("Seul un projet en cours peut être marqué comme terminé.");
+        }
+        if (project != null && "inprogress".equals(project.getStatus())) {
+            project.setStatus("finished");
             project.setEndDate(LocalDate.now());
         }
-        return project;
+        return jpaProjectRepository.updateProject(projectName,project);
     }
 
     public Project cancelProject(String projectName) {
-        Project project = projectRepository.getProjectByName(projectName);
-        if (project != null && !"terminé".equals(project.getStatus())) {
-            project.setStatus("annulé");
+        Project project = getProjectByName(projectName);
+        if (project == null) {
+            throw new IllegalArgumentException("Projet non trouvé avec le nom : " + projectName);
         }
-        return project;
+        if ("finished".equals(project.getStatus())) {
+            throw new IllegalArgumentException("Un projet terminé ne peut pas être annulé.");
+        }
+        if ("inprogress".equals(project.getStatus())) {
+            throw new IllegalArgumentException("Un projet en cours ne peut pas être annulé.");
+        }
+        if (project != null && !"finished".equals(project.getStatus())) {
+            project.setStatus("cancel");
+        }
+        return jpaProjectRepository.updateProject(projectName,project);
     }
+
+    public Project getProjectByName(String name){
+        return jpaProjectRepository.getProjectByName(name);
+    }
+
+    public Project determineNextProject() {
+        List<Project> pendingProjects = jpaProjectRepository.getProjectPlanned();
+        if (pendingProjects.isEmpty()) {
+            throw new IllegalArgumentException("Aucun projet en attente.");
+        }
+
+        return pendingProjects.stream()
+                .sorted(Comparator
+                        .comparingInt((Project p) -> mapPriorityToInt(p.getPriority()))
+                        .thenComparing(Project::getStartDate)
+                        .thenComparing(Project::getEndDate))
+                .findFirst()
+                .get();
+    }
+
+    private int mapPriorityToInt(String priority) {
+        switch (priority) {
+            case "critique":
+                return 3;
+            case "best effort":
+                return 2;
+            case "normale":
+            default:
+                return 1;
+        }
+    }
+
 }

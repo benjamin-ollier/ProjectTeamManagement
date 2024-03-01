@@ -3,14 +3,13 @@ package org.example;
 import org.example.Controller.DevSkillController;
 import org.example.Controller.ProjectController;
 import org.example.Controller.TeamController;
-import org.example.Model.Team;
 import org.example.Repository.*;
 import io.javalin.Javalin;
 import org.example.Controller.UserController;
 import org.example.Repository.Interface.DevSkillRepository;
 import org.example.Service.DevSkillService;
 import org.example.Service.ProjectService;
-import org.example.Service.TeamService;
+import org.example.Service.TeamService.TeamService;
 import org.example.Service.UserService;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -19,23 +18,23 @@ public class Main {
     public static void main(String[] args) {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 
-        UserRepository userRepository = new UserRepository(sessionFactory);
-        UserService userService = new UserService(userRepository);
+        JpaDevSkillRepository jpaDevSkillRepository = new JpaDevSkillRepository(sessionFactory);
+        JpaProjectRepository jpaProjectRepository = new JpaProjectRepository((sessionFactory));
+        JpaUserRepository jpaUserRepository = new JpaUserRepository(sessionFactory);
+        UserService userService = new UserService(jpaUserRepository, jpaProjectRepository,jpaDevSkillRepository);
         UserController userController = new UserController(userService);
 
-        TechnologyRepository technologyRepository = new TechnologyRepository(sessionFactory);
+        JpaTechnologyRepository jpaTechnologyRepository = new JpaTechnologyRepository(sessionFactory);
 
-        DevSkillRepository devSkillRepository = new JpaDevSkillRepository(sessionFactory);
-        DevSkillService devSkillService = new DevSkillService(devSkillRepository, technologyRepository, userRepository);
+        DevSkillService devSkillService = new DevSkillService(jpaDevSkillRepository, jpaTechnologyRepository, jpaUserRepository);
         DevSkillController devSkillController = new DevSkillController(devSkillService);
 
-        TeamRepository teamRepository = new TeamRepository(sessionFactory);
-        TeamService teamService =  new TeamService(teamRepository, userRepository);
+        JpaTeamRepository jpaTeamRepository = new JpaTeamRepository(sessionFactory);
+        TeamService teamService =  new TeamService(jpaTeamRepository, jpaUserRepository, jpaDevSkillRepository, jpaProjectRepository);
         TeamController teamController = new TeamController(teamService);
 
-        ProjectRepository projectRepository = new ProjectRepository((sessionFactory));
-        ProjectTechnologyRepository projectTechnologyRepository = new ProjectTechnologyRepository(sessionFactory);
-        ProjectService projectService = new ProjectService(projectRepository,projectTechnologyRepository,technologyRepository,teamService);
+        JpaProjectTechnologyRepository jpaProjectTechnologyRepository = new JpaProjectTechnologyRepository(sessionFactory);
+        ProjectService projectService = new ProjectService(jpaProjectRepository, jpaProjectTechnologyRepository, jpaTechnologyRepository,teamService);
         ProjectController projectController = new ProjectController(projectService);
 
 

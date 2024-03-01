@@ -24,9 +24,8 @@ public class User {
     }
 
     public UserId getUserIdentifiant() {
-        return userIdentifiant;
+        return this.userIdentifiant;
     }
-
     public void setUserIdentifiant(UserId userId) {
         this.userIdentifiant = userId;
     }

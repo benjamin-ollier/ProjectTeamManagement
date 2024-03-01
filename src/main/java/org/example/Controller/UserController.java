@@ -24,8 +24,8 @@ public class UserController {
         app.get("/user/name/{name}", getUserByName);
         app.get("/user/email/{email}", getUserByEmail);
         app.get("/users", getAllUsers);
-        app.get("/users/findAvailableDevelopers", findAvailableDevelopers);
         app.put("/user/update/{identity}", updateUser);
+        app.get("/user/getDeveloperCv/{nameOrEmail}",getDevelopperCv);
         app.delete("/user/delete/{name}/{email}", deleteUser);
 
     }
@@ -50,16 +50,6 @@ public class UserController {
             ctx.json(user);
         } else {
             ctx.status(404).result("User not found");
-        }
-    };
-
-    public Handler findAvailableDevelopers = ctx -> {
-        AvailableDev competence = ctx.bodyAsClass(AvailableDev.class);
-        List<User> user = userService.getAllAvailableDevelopers(competence);
-        if (!user.isEmpty()) {
-            ctx.json(user);
-        } else {
-            ctx.status(404).result("Users not found");
         }
     };
 
@@ -95,5 +85,12 @@ public class UserController {
             ctx.status(404).result("User not found");
         }
     };
+
+    public Handler getDevelopperCv = ctx -> {
+        String nameOrEmail = ctx.pathParam("nameOrEmail");
+
+        ctx.status(200).json(userService.getDeveloperCV(nameOrEmail));
+    };
+
 
 }

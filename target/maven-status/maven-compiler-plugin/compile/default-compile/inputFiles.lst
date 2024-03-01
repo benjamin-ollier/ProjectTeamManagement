@@ -1,4 +1,5 @@
 /Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Repository/UserRepository.java
+/Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Service/TeamService/TeamService.java
 /Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Model/Dto/TechnologyDTO.java
 /Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Model/Dto/ProjectDTO.java
 /Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Service/UserService.java
@@ -13,7 +14,7 @@
 /Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Main.java
 /Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Shared/Util.java
 /Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Service/DevSkillService.java
-/Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Service/TeamService.java
+/Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Service/TeamService/TeamValidationService.java
 /Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Model/Dto/TeamMemberDto.java
 /Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Repository/ProjectTechnologyRepository.java
 /Users/ben/Documents/dev/Cours-ESGI/Java/ProjectTeamManagement/src/main/java/org/example/Model/ProjectTechnology.java

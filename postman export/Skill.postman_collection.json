@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "5703151f-41e8-4d0c-877b-25480a27b1a4",
+		"name": "Skill",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25526860",
+		"_collection_link": "https://planetary-sunset-898498.postman.co/workspace/esgi-projectTeamManagement~2fa7768a-6c88-4004-9da7-0c6390572bb1/collection/25526860-5703151f-41e8-4d0c-877b-25480a27b1a4?action=share&source=collection_link&creator=25526860"
+	},
+	"item": [
+		{
+			"name": "get user skills by mail or name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/skills/user/ben3",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"skills",
+						"user",
+						"ben3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get devs by skills level",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/skill/searchByTechnoAndLevel/python/EXPERIENCED",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"skill",
+						"searchByTechnoAndLevel",
+						"python",
+						"EXPERIENCED"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add or update a dev skill",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"ben\",\n    \"email\": \"ben@gmail.com\",\n    \"role\": \"manageur\",\n    \"lastTeamChangeDate\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7071/skill/addOrUpdateSkill/tmy/python/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7071",
+					"path": [
+						"skill",
+						"addOrUpdateSkill",
+						"tmy",
+						"python",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

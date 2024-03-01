@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "1c71f271-4e4b-433e-a009-8d4c68cb7f86",
+		"name": "Team",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25526860",
+		"_collection_link": "https://planetary-sunset-898498.postman.co/workspace/esgi-projectTeamManagement~2fa7768a-6c88-4004-9da7-0c6390572bb1/collection/25526860-1c71f271-4e4b-433e-a009-8d4c68cb7f86?action=share&source=collection_link&creator=25526860"
+	},
+	"item": [
+		{
+			"name": "add user to team",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"teamId\":10,\n  \"members\": [\n    {\n      \"email\": \"ben2@gmail.com\",\n      \"name\": \"ben2\",\n      \"devSkillId\":1\n    },\n    {\n      \"email\": \"ben@gmail.com\",\n      \"name\": \"ben\",\n      \"devSkillId\":1\n    },\n    {\n      \"email\": \"ben3@gmail.com\",\n      \"name\": \"ben3\",\n      \"devSkillId\":4\n    }\n\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/team/addMember",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"team",
+						"addMember"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transfert developper",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"teamId\":10,\n  \"members\": [\n    {\n      \"email\": \"ben2@gmail.com\",\n      \"name\": \"ben2\",\n      \"devSkillId\":1\n    },\n    {\n      \"email\": \"ben@gmail.com\",\n      \"name\": \"ben\",\n      \"devSkillId\":1\n    },\n    {\n      \"email\": \"ben3@gmail.com\",\n      \"name\": \"ben3\",\n      \"devSkillId\":4\n    }\n\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/team/transfertDevelopper/ben/12",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"team",
+						"transfertDevelopper",
+						"ben",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create team",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/team/createTeam/nameteam2/open/projet1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"team",
+						"createTeam",
+						"nameteam2",
+						"open",
+						"projet1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all team",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/team/getAllTeams",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"team",
+						"getAllTeams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all member with teamId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/team/getAllTeamMember/10",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"team",
+						"getAllTeamMember",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

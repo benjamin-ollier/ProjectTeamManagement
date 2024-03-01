@@ -1,7 +1,5 @@
 package org.example.Model.Dto;
 
-import org.example.Model.Technology;
-
 import java.time.LocalDate;
 import java.util.List;
 
