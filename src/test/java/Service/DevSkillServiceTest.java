@@ -5,6 +5,7 @@ import org.example.Model.Technology;
 import org.example.Model.User;
 import org.example.Model.UserId;
 import org.example.Repository.Interface.DevSkillRepository;
+import org.example.Repository.JpaDevSkillRepository;
 import org.example.Repository.JpaTechnologyRepository;
 import org.example.Repository.JpaUserRepository;
 import org.example.Service.DevSkillService;
@@ -25,7 +26,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class DevSkillServiceTest {
     @Mock
-    private DevSkillRepository devSkillRepository;
+    private JpaDevSkillRepository jpaDevSkillRepository;
     @Mock
     private JpaTechnologyRepository jpaTechnologyRepository;
     @Mock
@@ -84,7 +85,7 @@ public class DevSkillServiceTest {
             when(jpaUserRepository.getUserByEmail(user.getUserIdentifiant().getEmail())).thenReturn(user);
             when(jpaTechnologyRepository.technologieExists(tech.getName())).thenReturn(true);
             when(jpaTechnologyRepository.getTechnologyByName(tech.getName())).thenReturn(tech);
-            when(devSkillRepository.save(any(DevSkill.class))).thenAnswer(invocation -> invocation.getArgument(0));
+            when(jpaDevSkillRepository.save(any(DevSkill.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
             DevSkill result = devSkillService.addOrUpdateSkill(user.getUserIdentifiant().getEmail(), tech.getName(), yearsOfExperience);
 
@@ -98,7 +99,7 @@ public class DevSkillServiceTest {
             verify(jpaUserRepository).getUserByEmail(user.getUserIdentifiant().getEmail());
             verify(jpaTechnologyRepository).technologieExists(tech.getName());
             verify(jpaTechnologyRepository).getTechnologyByName(tech.getName());
-            verify(devSkillRepository).save(any(DevSkill.class));
+            verify(jpaDevSkillRepository).save(any(DevSkill.class));
         }
 
 
@@ -128,8 +129,8 @@ public class DevSkillServiceTest {
             when(jpaUserRepository.getUserByEmail(anyString())).thenReturn(user);
             when(jpaTechnologyRepository.technologieExists(anyString())).thenReturn(true);
             when(jpaTechnologyRepository.getTechnologyByName(anyString())).thenReturn(tech);
-            when(devSkillRepository.getDevSkillIfExists(anyString(), anyString(), anyInt())).thenReturn(existingDevSkill);
-            when(devSkillRepository.update(any(DevSkill.class))).thenAnswer(invocation -> invocation.getArgument(0));
+            when(jpaDevSkillRepository.getDevSkillIfExists(anyString(), anyString(), anyInt())).thenReturn(existingDevSkill);
+            when(jpaDevSkillRepository.update(any(DevSkill.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
             // Exécution de la méthode à tester
             DevSkill result = devSkillService.addOrUpdateSkill(userId.getEmail(), technologyName, updatedYearsOfExperience);
@@ -140,8 +141,8 @@ public class DevSkillServiceTest {
             assertEquals(expectedUpdatedLevel, result.getLevel(), "Le niveau devrait être mis à jour selon les années d'expérience");
 
             // Vérifier que les méthodes attendues ont été appelées sur les mocks
-            verify(devSkillRepository).getDevSkillIfExists(userId.getName(), userId.getEmail(), tech.getTechId());
-            verify(devSkillRepository).update(any(DevSkill.class));
+            verify(jpaDevSkillRepository).getDevSkillIfExists(userId.getName(), userId.getEmail(), tech.getTechId());
+            verify(jpaDevSkillRepository).update(any(DevSkill.class));
         }
 
         @Test
